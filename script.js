@@ -1,5 +1,6 @@
 const secretNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
+let previousGuess = null;
 const userGuessInput = document.getElementById("userGuess");
 const submitButton = document.getElementById("submit");
 const resultElement = document.getElementById("result");
@@ -12,8 +13,11 @@ submitButton.addEventListener("click", function() {
         resultElement.innerHTML = "Please enter a valid number.";
     } else if (userGuess < 1 || userGuess > 100) {
         resultElement.innerHTML = "Please enter a number between 1 and 100.";
+    } else if (userGuess === previousGuess) {
+        resultElement.innerHTML = "You have already guessed that number. Try a different number.";
     } else {
         attempts++;
+        previousGuess = userGuess; // Store the current guess as the previous guess for the next round
         checkGuess(userGuess);
     }
 });
